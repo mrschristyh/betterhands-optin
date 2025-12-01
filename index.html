@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Better Hands, LLC — SMS Opt-In</title>
+  <style>
+    /* Simple, mobile-friendly styling */
+    :root {
+      --maxw: 720px;
+      --pad: 16px;
+      --radius: 10px;
+      --border: #e5e7eb;
+      --muted: #6b7280;
+      --brand: #111827;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+      color: #111;
+      background: #fafafa;
+    }
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 24px var(--pad);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand__logo {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: #111827; color: white; display: grid; place-items: center;
+      font-weight: 700; letter-spacing: 1px;
+    }
+    h1,h2,h3 { margin: 0 0 12px 0; }
+    main .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    label { display:block; font-weight: 600; margin-bottom: 6px; }
+    input[type="text"], input[type="tel"], input[type="email"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .consent {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fcfcfc;
+      font-size: 14px;
+      color: #111;
+    }
+    .consent label { font-weight: 500; }
+    .consent small { display:block; color: var(--muted); margin-top: 6px; }
+    .muted { color: var(--muted); }
+    .actions { margin-top: 16px; display: flex; gap: 10px; align-items: center; }
+    button {
+      padding: 12px 18px; border: 0; border-radius: 10px;
+      background: #111827; color: white; font-weight: 600; cursor: pointer;
+    }
+    button[disabled] { opacity: 0.6; cursor: not-allowed; }
+    footer {
+      margin-top: 40px; color: var(--muted); font-size: 14px;
+    }
+    a { color: #0f62fe; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .note {
+      margin-top: 10px; font-size: 13px; color: var(--muted);
+    }
+    .toast {
+      display: none; margin-top: 12px; padding: 12px; border-radius: 8px;
+      background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="brand__logo">BH</div>
+        <div>
+          <strong>Better Hands, LLC</strong><br/>
+          <span class="muted">Real Estate Investing</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Sign up for Text Updates</h1>
+      <p class="muted">Get property opportunities and updates by SMS.</p>
+
+      <!-- Demo-only form to show explicit consent and workflow for reviewers -->
+      <form id="optin-form">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+        </div>
+
+        <div class="field" style="margin-top:12px;">
+          <label for="phone">Mobile Number</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(555) 123‑4567" required />
+        </div>
+
+        <div class="consent">
+          <label>
+            <input type="checkbox" id="sms_opt_in" name="sms_opt_in" />
+            I agree to receive <strong>recurring automated marketing and informational text messages</strong>
+            from <strong>Better Hands, LLC</strong> at the mobile number I provided.
+          </label>
+          <small>
+            Message frequency varies. Consent is not a condition of purchase. Reply <strong>STOP</strong> to cancel, <strong>HELP</strong> for help. Msg &amp; data rates may apply.
+            See our <a href="./terms.html" target="_blank" rel="noopener">Terms</a> and
+            <a href="./privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+          </small>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submitBtn" disabled>Submit</button>
+          <span class="note">This demo form does not collect data; it illustrates consent for verification.</span>
+        </div>
+
+        <div id="toast" class="toast">Thanks! A demo confirmation would be sent next. (This page is a static demo for verification.)</div>
+      </form>
+
+      <hr style="margin:24px 0;border:none;border-top:1px solid var(--border);" />
+
+      <h2>What You’ll Receive</h2>
+      <ul>
+        <li>Property opportunities and notifications</li>
+        <li>Occasional investing updates</li>
+        <li>You can opt out anytime via <strong>STOP</strong></li>
+      </ul>
+
+      <p class="muted">
+        Need help? Email us at <a href="mailto:info@betterhands.com">info@betterhands.com</a>.
+      </p>
+    </section>
+
+    <footer>
+      © 2025 Better Hands, LLC. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // Basic client-side behavior to reflect real consent flow for reviewers
+    const box = document.getElementById('sms_opt_in');
+    const btn = document.getElementById('submitBtn');
+    const form = document.getElementById('optin-form');
+    const toast = document.getElementById('toast');
+
+    function toggleBtn() {
+      btn.disabled = !box.checked;
+    }
+    box.addEventListener('change', toggleBtn);
+    toggleBtn();
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      toast.style.display = 'block';
+      window.scrollTo({ top: form.offsetTop, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
