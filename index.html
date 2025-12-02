@@ -20,9 +20,9 @@
     .consent small { display:block; color:var(--muted); margin-top:6px; }
     .actions { margin-top:16px; display:flex; gap:10px; align-items:center; }
     button { padding:12px 18px; border:0; border-radius:10px; background:#111827; color:#fff; font-weight:600; cursor:pointer; }
-    button[disabled] { opacity:.6; cursor:not-allowed; }
     .toast { display:none; margin-top:12px; padding:12px; border-radius:8px; background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0; font-size:14px; }
-    footer { margin-top:40px; color:var(--muted); font-size:14px; }
+    .toast.alt { background:#eff6ff; color:#1e40af; border-color:#bfdbfe; }
+    footer { margin-top:40px; color:#6b7280; font-size:14px; }
     a { color:#0f62fe; text-decoration:none; } a:hover { text-decoration:underline; }
   </style>
 </head>
@@ -41,8 +41,8 @@
 
   <main class="wrap">
     <section class="card">
-      <h1>Sign up for Text Updates</h1>
-      <p class="muted">Get property opportunities and investing updates by SMS.</p>
+      <h1>Sign up</h1>
+      <p class="muted">You can submit this form without subscribing to SMS. SMS is optional.</p>
 
       <form id="optin-form">
         <div class="field">
@@ -58,8 +58,7 @@
         <div class="consent">
           <label>
             <input type="checkbox" id="sms_opt_in" name="sms_opt_in" />
-            I agree to receive <strong>recurring automated marketing text messages</strong>
-            from <strong>Better Hands, LLC</strong> at the mobile number I provided.
+            I agree to receive <strong>recurring automated marketing text messages</strong> from <strong>Better Hands, LLC</strong> at the mobile number I provided.
           </label>
           <small>
             Message frequency varies. Consent is not a condition of purchase. Reply <strong>STOP</strong> to cancel, <strong>HELP</strong> for help. Msg &amp; data rates may apply.
@@ -69,15 +68,16 @@
         </div>
 
         <div class="actions">
-          <button type="submit" id="submitBtn" disabled>Submit</button>
+          <button type="submit" id="submitBtn">Submit</button>
         </div>
 
-        <div id="toast" class="toast">Thanks for signing up! You’ll receive a confirmation text shortly.</div>
+        <div id="toastYes" class="toast">Thanks for subscribing! You’ll receive a confirmation text shortly.</div>
+        <div id="toastNo" class="toast alt">Thanks! You chose not to subscribe to SMS. Your submission was received.</div>
       </form>
 
       <hr style="margin:24px 0;border:none;border-top:1px solid var(--border);" />
 
-      <h2>What You’ll Receive</h2>
+      <h2>What You’ll Receive (if subscribed)</h2>
       <ul>
         <li>Property opportunities</li>
         <li>Occasional investing updates</li>
@@ -89,23 +89,24 @@
 
     <footer>
       © 2025 Better Hands, LLC. All rights reserved.
-      <!-- Optional: add your physical business address here to match Twilio form -->
     </footer>
   </main>
 
   <script>
     const box = document.getElementById('sms_opt_in');
-    const btn = document.getElementById('submitBtn');
     const form = document.getElementById('optin-form');
-    const toast = document.getElementById('toast');
-
-    function toggleBtn() { btn.disabled = !box.checked; }
-    box.addEventListener('change', toggleBtn);
-    toggleBtn();
+    const toastYes = document.getElementById('toastYes');
+    const toastNo = document.getElementById('toastNo');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      toast.style.display = 'block';
+      if (box.checked) {
+        toastNo.style.display = 'none';
+        toastYes.style.display = 'block';
+      } else {
+        toastYes.style.display = 'none';
+        toastNo.style.display = 'block';
+      }
       window.scrollTo({ top: form.offsetTop, behavior: 'smooth' });
     });
   </script>
