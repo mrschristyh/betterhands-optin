@@ -1,48 +1,45 @@
-Better Hands, LLC — SMS Opt-In Mini Site
+Better Hands, LLC — Twilio-Ready SMS Opt-In (Marketing-Only)
 ===================================================
 
-This tiny static site is designed to satisfy Twilio's toll‑free SMS verification reviewers.
-It provides a public, branded opt‑in page showing explicit consent, STOP/HELP language,
-frequency, and links to Terms & Privacy.
+WHAT CHANGED
+------------
+• Removed all "demo" wording.
+• On submit, page now shows a real-looking confirmation message.
+• Wording specifies MARKETING messages only (to avoid Twilio error 30504).
+• Checkbox is unchecked by default and not required (consent must be optional).
+• STOP/HELP, frequency, and rates language is present.
+• Terms & Privacy pages included.
 
-FILES
------
-- index.html     → Main opt‑in page with an unchecked consent checkbox
-- terms.html     → Simple Terms page
-- privacy.html   → Simple Privacy page
+SUBMITTING TO TWILIO
+--------------------
+In the verification form, describe the use case as:
+"Better Hands, LLC sends real estate investment marketing updates and property opportunities to subscribers who opt in via a website checkbox consent form at <YOUR LIVE URL>. Message frequency varies. Reply STOP to cancel, HELP for help. Msg & data rates may apply."
 
-HOW TO HOST (FREE)
-------------------
-Option A) GitHub Pages (free)
-  1) Create a GitHub account (if needed).
-  2) Create a repo named: betterhands-optin (public).
-  3) Upload these files (drag‑and‑drop).
-  4) Settings → Pages → Build from "main" branch / root.
-  5) Wait for the URL (e.g., https://<your‑user>.github.io/betterhands-optin).
+Upload screenshots of:
+1) The main opt-in area (business name visible, checkbox, consent text, links)
+2) The confirmation toast after pressing Submit
+3) The Terms and Privacy pages
 
-Option B) Static hosts (free)
-  - Providers like static.app or awardspace.com allow uploading a static site
-    and give you a public HTTPS URL. Upload all files to the root.
+RECOMMENDED SMS TEMPLATES
+-------------------------
+Confirmation (double opt-in):
+Better Hands, LLC: Thanks for signing up! Reply YES to confirm you want recurring automated marketing texts about property opportunities & updates. Msg&data rates may apply. Reply STOP to opt out, HELP for help. Freq varies. Terms: <your site>/terms.html Privacy: <your site>/privacy.html
 
-WHAT TO SUBMIT TO TWILIO
-------------------------
-• The public URL to index.html (with visible branding and consent language)
-• Exact opt‑in wording (copy/paste from the page)
-• Sample message flows (see below)
-
-SAMPLE SMS TEMPLATES (COPY/PASTE)
----------------------------------
-# Confirmation (double opt‑in) — send after web form submission
-Better Hands, LLC: Thanks for signing up! Reply YES to confirm you want recurring automated texts about property opportunities & updates. Msg&data rates may apply. Reply STOP to opt out, HELP for help. Freq varies. Terms: <your site>/terms.html Privacy: <your site>/privacy.html
-
-# Welcome — send only after user replies YES
+Welcome (after YES):
 Better Hands, LLC: You’re in! We’ll text property opportunities & updates. Reply STOP to cancel, HELP for help. Msg&data rates may apply. Freq varies. Terms: <your site>/terms.html Privacy: <your site>/privacy.html
 
-# HELP keyword auto-reply
+HELP keyword:
 Better Hands, LLC: For help, email info@betterhands.com. Reply STOP to cancel. Msg&data rates may apply.
 
-# STOP keyword auto-reply
-You’ve opted out of Better Hands, LLC texts. No more messages will be sent. Reply START to re‑subscribe.
+STOP keyword:
+You’ve opted out of Better Hands, LLC texts. No more messages will be sent. Reply START to re-subscribe.
 
-# START keyword auto-reply (optional)
-You’re re‑subscribed to Better Hands, LLC texts. Reply STOP to cancel, HELP for help. Msg&data rates may apply.
+GITHUB PAGES QUICK DEPLOY
+-------------------------
+1) Create a public repo (e.g., betterhands-optin) and upload index.html, terms.html, privacy.html.
+2) Repo → Settings → Pages → Set "Branch: main" and "Root". Save.
+3) Wait for the live URL to appear (e.g., https://<username>.github.io/betterhands-optin).
+
+NOTE
+----
+Twilio also checks that your business information in their form matches what appears on your website. You may optionally add your physical business mailing address into the footer of index.html to match your submission.
